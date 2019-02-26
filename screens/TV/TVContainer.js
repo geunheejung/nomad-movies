@@ -1,18 +1,55 @@
 import React, { PureComponent } from 'react';
+import { tv } from '../../api';
 import TVPresenter from './TVPresenter';
 
 export default class extends PureComponent {
   state = {
     loading: true,
-    upcomming: null,
+    topRated: null,
     popular: null,
-    nowPlaying: null,
+    airingToday: null,
+    error: null,
   };
 
-  render() {
-    const { loading } = this.state;
+  async componentDidMount() {
+    let topRated,
+        popular,
+        airingToday,
+        error;
+    try {
+      ({ 
+        data: { 
+          results: topRated 
+        } 
+      } = await tv.getTopRated());  
+      ({ 
+        data: { 
+          results: popular 
+        } 
+      } = await tv.getPopular());
+      ({ 
+        data: { 
+          results: airingToday
+        } 
+      } = await tv.getAiringToday());
+    } catch (e) {
+      error = `Can't get Movies.`;
+    } finally {
+      this.setState({
+        loading: false,
+        error,
+        topRated,
+        popular,
+        airingToday,
+      });
+    }
+  }
+
+  render() {  
     return (      
-      <TVPresenter loading={loading} />
+      <TVPresenter 
+        {...this.state}
+      />
     );
   }
 }

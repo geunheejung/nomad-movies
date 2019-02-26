@@ -24,11 +24,11 @@ export const movies = {
   }),
 }
 
-export const tvApi = {
-  topRated: () => api.get('tv/top_rated'),
-  popular: () => api.get('tv/popular'),
-  airingToday: () => api.get('tv/airing_today'),
-  showDetail: tvId => api.get(`tv/${tvId}`, {
+export const tv = {
+  getTopRated: () => api.get('tv/top_rated'),
+  getPopular: () => api.get('tv/popular'),
+  getAiringToday: () => api.get('tv/airing_today'),
+  getShowDetail: tvId => api.get(`tv/${tvId}`, {
     params: {
       append_to_response: 'vidoes'
     }

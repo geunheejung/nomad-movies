@@ -53,12 +53,9 @@ export default class extends PureComponent {
   }
 
   render() {
-    const { loading } = this.state;
-    console.log(this.state);
     return (
       <MoviesPresenter 
-        {...this.props} 
-        loading={loading}
+        {...this.state} 
       />
     );
   }
