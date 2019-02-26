@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { AppLoading, Font, Asset } from 'expo';
 import { StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { console } from 'console';
 import { Text, View } from 'react-native';
+import api from './api';
 import MainNavigation from './navigation/MainNavigation';
 
 export default class App extends Component {
@@ -11,7 +11,7 @@ export default class App extends Component {
     loaded: false,
   };
 
-  handleError = (error) => console.log(error);
+  handleError = (error) => console.error('error ->', error);
   
   handleLoaded = () => this.setState({ loaded: true });
 

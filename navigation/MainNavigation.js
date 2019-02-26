@@ -18,7 +18,7 @@ const RouteConfigs = {
     }
   },
 };
- 
+  
 const StackNavigatorConfig = {
   headerBackTitleVisible: false,
 };

@@ -10,6 +10,14 @@ with React Native.
 - [ ] Search
 - [ ] Detail
 
+## API Verbs
+
+- [ ] Now playing (Movie)
+- [ ] Upcoming (Movie)
+- [ ] Top Rated (TV, Movie)
+- [ ] Popular (TV, Movie)
+- [ ] Airing Today (TV)
+
 # 메모
 Xcode, 안드로이드 스튜디오를 사용하지 않고, Expo는 리액트 네이티브를 작업하는 방식이다. 
 앱의 변경이 존재할 경우 앱스토어에 승인 요청을 안해도 된다. -> javascript라서 코드를 다운로드 가능!🔥
