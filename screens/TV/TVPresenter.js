@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
+import PropTypes from 'prop-types';
 import Loader from '../../components/Loader';
+import MovieSlider from '../../components/MovieSlider';
 
 const TvPresenter = ({
-  loading
+  loading,
+  movies
 }) => (
   <>
-    {loading ? <Loader /> : <Text>TV</Text>}
+    {loading ? <Loader /> : <MovieSlider movies={movies} />}
   </>
 );
 
