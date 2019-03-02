@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { TINT_COLOR } from '../constatns/Color'
 import makePhotoUrl from '../utils/makePhotoUrl';
 import Layout from '../constatns/Layout';
 import MoviePoster from './MoviePoster';
+import MovieRating from './MovieRating';
 
 const Container = styled.View`
   position: relative;
@@ -14,20 +16,58 @@ const Content = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;  
+  justify-content: space-between;
   padding-horizontal: 30px;
+`;
+
+const Column = styled.View`
+  width: 60%;
+  align-items: flex-start;
+`;
+
+const Title = styled.Text`
+  color: ${TINT_COLOR};
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const Overview = styled.Text`
+  margin-bottom: 10px;
+  color: ${TINT_COLOR};
+  font-size: 12px;
 `;
 
 const BgImage = styled.Image`
   width:${Layout.width};
   height:${Layout.height / 3};
-  opacity: 0.5;
+  opacity: 0.3;
   position: absolute;
+`;
 
+const VoteContiner = styled.View`
+  margin: 10px 0;
+`;
+
+// 터치 시 Opacity 효과
+const BtnContainer = styled.TouchableOpacity`
+  padding: 5px;
+  border-radius: 2.5px;
+  background-color: #e74c3c;
+`;
+
+const BtnText = styled.Text`
+  color: ${TINT_COLOR};
+  font-size: 12px;
 `;
 
 const MovieSlide = ({
+  id,
+  posterPhoto,
   backgroundPhoto,
-}) => { 
+  title,
+  voteAvg,
+  overview
+}) => {
   return (
     <Container>
       <BgImage 
@@ -39,6 +79,33 @@ const MovieSlide = ({
         <MoviePoster 
           path={backgroundPhoto}
         />
+        <Column>
+          <Title>{title}</Title>
+          {
+            !!voteAvg ? (
+              <VoteContiner>
+                <MovieRating
+                  inSlide
+                  votes={voteAvg}
+                />
+              </VoteContiner>
+            ) : null
+          }
+          {
+            overview ? (
+              <Overview>
+                {
+                  overview.length > 117 ?
+                    `${overview.substring(0, 120)}...` :
+                    overview
+                }
+              </Overview>
+            ) : null
+          }
+          <BtnContainer>
+            <BtnText>More Details</BtnText>
+          </BtnContainer>
+        </Column>
       </Content>
     </Container>
   )
