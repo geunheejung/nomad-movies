@@ -5,6 +5,7 @@ import Loader from '../../components/Loader';
 import { BG_COLOR } from '../../constatns/Color';
 import MovieSlider from '../../components/MovieSlider';
 import Section from '../../components/Section';
+import MovieItem from '../../components/MovieItem';
 
 const Container = styled.ScrollView`
   background-color: ${BG_COLOR};
@@ -21,7 +22,23 @@ const MoviePresenter = ({
   return (
     <Container>
       { nowPlaying ? <MovieSlider movies={nowPlaying} /> : null }
-      { upcomming ? <Section movies={upcomming} title="Upcoming Movies" /> : null }
+      { upcomming
+        ? (
+          <Section title="Upcoming Movies">
+            {
+              upcomming.filter(movie => movie.poster_path !== null).map(movie => (
+                <MovieItem
+                  key={movie.id}
+                  id={movie.id}
+                  posterPhoto={movie.poster_path}
+                  voteAvg={movie.vote_average}
+                  title={movie.title}
+                />
+              ))
+            }
+          </Section>
+        )
+        : null }
     </Container>
   );
 }
