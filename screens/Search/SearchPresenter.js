@@ -32,6 +32,20 @@ const SearchResults = styled.ScrollView`
   margin: 20px 0 0 0;
 `;
 
+const AllNotFoundContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: ${Layout.height / 1.7};
+`;
+
+const AllNotFound = styled.Text`
+  font-size: 40px;
+  font-weight: bold;
+  color: ${TINT_COLOR};
+`;
+
 const NotFoundContainer = styled.View`
   margin-left: 20px;
 `;
@@ -85,42 +99,51 @@ const SearchPresenter = ({
     <SearchResults>
       {
         loading ? <Loader /> : (
-          <>
-            <SearchResult
-              results={movieResults}
-              title="🍿Movie Results"
-              renderResults={results => (
-                results
-                  .filter(movie => movie.poster_path !== null)
-                  .map(movie => (
-                    <MovieItem
-                      key={movie.id}
-                      id={movie.id}
-                      posterPhoto={movie.poster_path}
-                      voteAvg={movie.vote_average}
-                      title={movie.title}
-                    />
-                  ))
-              )}
-            />
-            <SearchResult
-              results={tvResults}
-              title="📺TV Results"
-              renderResults={results => (
-                results
-                  .filter(tv => tv.poster_path !== null)
-                  .map(tv => (
-                    <MovieItem
-                      key={tv.id}
-                      id={tv.id}
-                      posterPhoto={tv.backdrop_path}
-                      voteAvg={tv.vote_average}
-                      title={tv.name}
-                    />
-                  ))
-              )}
-            />
-          </>
+          movieResults && _isEmpty(movieResults) &&
+          tvResults&& _isEmpty(tvResults) ? (
+            <AllNotFoundContainer>
+              <AllNotFound>
+                Not Found...🙅‍♂️
+              </AllNotFound>
+            </AllNotFoundContainer>
+          ) : (
+            <>
+              <SearchResult
+                results={movieResults}
+                title="🍿Movie Results"
+                renderResults={results => (
+                  results
+                    .filter(movie => movie.poster_path !== null)
+                    .map(movie => (
+                      <MovieItem
+                        key={movie.id}
+                        id={movie.id}
+                        posterPhoto={movie.poster_path}
+                        voteAvg={movie.vote_average}
+                        title={movie.title}
+                      />
+                    ))
+                )}
+              />
+              <SearchResult
+                results={tvResults}
+                title="📺TV Results"
+                renderResults={results => (
+                  results
+                    .filter(tv => tv.poster_path !== null)
+                    .map(tv => (
+                      <MovieItem
+                        key={tv.id}
+                        id={tv.id}
+                        posterPhoto={tv.backdrop_path}
+                        voteAvg={tv.vote_average}
+                        title={tv.name}
+                      />
+                    ))
+                )}
+              />
+            </>
+          )
         )
       }
     </SearchResults>
