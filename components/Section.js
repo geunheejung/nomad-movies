@@ -17,15 +17,24 @@ const Title = styled.Text`
 	font-weight: 600;		
 `;
 
-const Section = ({ title, children }) => (
+const Section = ({ title, horizontal, children }) => (
 	<Container>
 		<Title>{title}</Title>
-		<ScrollView horizontal>{children}</ScrollView>
+		<ScrollView horizontal={horizontal}>{children}</ScrollView>
 	</Container>
 );
 
 Section.propTypes = {
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
 	title: PropTypes.string.isRequired,
+	horizontal: PropTypes.bool,
+}
+
+Section.defaultProps = {
+	horizontal: true,
 }
 
 export default Section;

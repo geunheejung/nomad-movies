@@ -5,7 +5,7 @@ import TVPresenter from './TVPresenter';
 export default class extends PureComponent {
   state = {
     loading: true,
-    topRated: null,
+    airingThisWeek: null,
     popular: null,
     airingToday: null,
     error: null,
@@ -19,9 +19,9 @@ export default class extends PureComponent {
     try {
       ({ 
         data: { 
-          results: topRated 
+          results: airingThisWeek
         } 
-      } = await tv.getTopRated());  
+      } = await tv.getAiringThisWeek());
       ({ 
         data: { 
           results: popular 
@@ -38,7 +38,7 @@ export default class extends PureComponent {
       this.setState({
         loading: false,
         error,
-        topRated,
+        airingThisWeek,
         popular,
         airingToday,
       });

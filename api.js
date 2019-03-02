@@ -25,7 +25,7 @@ export const movies = {
 }
 
 export const tv = {
-  getTopRated: () => api.get('tv/top_rated'),
+  getAiringThisWeek: () => api.get('tv/on_the_air'),
   getPopular: () => api.get('tv/popular'),
   getAiringToday: () => api.get('tv/airing_today'),
   getShowDetail: tvId => api.get(`tv/${tvId}`, {

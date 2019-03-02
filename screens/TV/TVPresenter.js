@@ -16,42 +16,69 @@ const TvPresenter = ({
   loading,
   airingToday,
   popular,
-  topRated
+  airingThisWeek
 }) => {
   if (loading) return <Loader />
 
   return (
     <Container>
-      <Section title="Airing Today">
-        {
-          airingToday
-            .filter(tv => tv.poster_path !== null)
-            .map(tv => (
-              <MovieItem
-                key={tv.id}
-                id={tv.id}
-                posterPhoto={tv.backdrop_path}
-                voteAvg={tv.vote_average}
-                title={tv.name}
-              />
-            ))
-        }
-      </Section>
-      <Section title="Top Rated">
-        {
-          topRated
-            .filter(tv => tv.poster_path !== null)
-            .map(tv => (
-              <MovieItem
-                key={tv.id}
-                id={tv.id}
-                posterPhoto={tv.backdrop_path}
-                voteAvg={tv.vote_average}
-                title={tv.name}
-              />
-            ))
-        }
-      </Section>
+      {
+        airingToday ? (
+          <Section title="Airing Today">
+            {
+              airingToday
+                .filter(tv => tv.poster_path !== null)
+                .map(tv => (
+                  <MovieItem
+                    key={tv.id}
+                    id={tv.id}
+                    posterPhoto={tv.backdrop_path}
+                    voteAvg={tv.vote_average}
+                    title={tv.name}
+                  />
+                ))
+            }
+          </Section>
+        ) : null
+      }
+      {
+        airingThisWeek ? (
+          <Section title="Airing This Week">
+            {
+              airingThisWeek
+                .filter(tv => tv.poster_path !== null)
+                .map(tv => (
+                  <MovieItem
+                    key={tv.id}
+                    id={tv.id}
+                    posterPhoto={tv.backdrop_path}
+                    voteAvg={tv.vote_average}
+                    title={tv.name}
+                  />
+                ))
+            }
+          </Section>
+        ) : null
+      }
+      {
+        popular ? (
+          <Section title="Popular">
+            {
+              popular
+                .filter(tv => tv.poster_path !== null)
+                .map(tv => (
+                  <MovieItem
+                    key={tv.id}
+                    id={tv.id}
+                    posterPhoto={tv.backdrop_path}
+                    voteAvg={tv.vote_average}
+                    title={tv.name}
+                  />
+                ))
+            }
+          </Section>
+        ) : null
+      }
     </Container>
   )
 }

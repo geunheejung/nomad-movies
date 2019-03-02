@@ -6,6 +6,7 @@ import makePhotoUrl from '../utils/makePhotoUrl';
 import Layout from '../constatns/Layout';
 import MoviePoster from './MoviePoster';
 import MovieRating from './MovieRating';
+import Overview from './Overview';
 
 const Container = styled.View`
   position: relative;
@@ -31,10 +32,9 @@ const Title = styled.Text`
   font-weight: 600;
 `;
 
-const Overview = styled.Text`
+const OverviewContainer = styled.View`
   margin-bottom: 10px;
-  color: ${TINT_COLOR};
-  font-size: 12px;
+
 `;
 
 const BgImage = styled.Image`
@@ -91,17 +91,9 @@ const MovieSlide = ({
               </VoteContiner>
             ) : null
           }
-          {
-            overview ? (
-              <Overview>
-                {
-                  overview.length > 117 ?
-                    `${overview.substring(0, 120)}...` :
-                    overview
-                }
-              </Overview>
-            ) : null
-          }
+          <OverviewContainer>
+            <Overview overview={overview} />
+          </OverviewContainer>
           <BtnContainer>
             <BtnText>More Details</BtnText>
           </BtnContainer>
