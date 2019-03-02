@@ -16,7 +16,7 @@ const getAssetByOs = (name) => Platform.OS === 'ios' ? `ios-${name}` : `md-${nam
 const routeConfig = {
   Move: { 
     screen: createStack(MovieScreen, 'Movies'),
-    navigationOptions: {
+    navigationOptions:  {
       tabBarIcon: ({ focused }) => (
         <TabBarIcon  
           focused={focused} 
@@ -50,6 +50,7 @@ const routeConfig = {
 };
 
 const tabOptions = {
+  initialRouteName: 'Search',
   tabBarOptions: {
     showLabel: false,
     style: {

@@ -17,7 +17,7 @@ export const movies = {
       append_to_response: 'vidoes'
     }
   }),
-  search: term => api.get('search/movie', {
+   search: term => api.get('search/movie', {
     params: {
       query: encodeURIComponent(term),
     }

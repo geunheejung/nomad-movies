@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
+    "lodash": "^4.17.11",
     "react-native-swiper": "^1.5.14"
   },
   "private": true
