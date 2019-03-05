@@ -68,6 +68,7 @@ const TvPresenter = ({
                 .filter(tv => tv.poster_path !== null)
                 .map(tv => (
                   <MovieItem
+                    horizontal
                     key={tv.id}
                     id={tv.id}
                     posterPhoto={tv.backdrop_path}

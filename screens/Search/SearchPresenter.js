@@ -5,9 +5,8 @@ import _isEmpty from 'lodash/isEmpty';
 import Loader from '../../components/Loader';
 import { BG_COLOR, GREY_COLOR, TINT_COLOR } from '../../constatns/Color';
 import Layout from '../../constatns/Layout';
-import Section from '../../components/Section';
+import NotFoundSection from '../../components/NotFoundSection';
 import MovieItem from '../../components/MovieItem';
-
 
 const Container = styled.View`
   flex: 1;
@@ -46,37 +45,6 @@ const AllNotFound = styled.Text`
   color: ${TINT_COLOR};
 `;
 
-const NotFoundContainer = styled.View`
-  margin-left: 20px;
-`;
-
-const NotFound = styled.Text`  
-  color: ${TINT_COLOR};
-  font-weight: 600;
-`;
-
-const SearchResult = ({
-  title,
-  results,
-  renderResults,
-}) => {
-  if (!results) return null;
-
-  return (
-    <Section title={title}>
-      {
-        _isEmpty(results) ? (
-          <NotFoundContainer>
-            <NotFound>
-              No Results...🤯🤯
-            </NotFound>
-          </NotFoundContainer>
-        ) : renderResults(results)
-      }
-    </Section>
-  );
-}
-
 const SearchPresenter = ({
   loading,
   movieResults,
@@ -108,7 +76,7 @@ const SearchPresenter = ({
             </AllNotFoundContainer>
           ) : (
             <>
-              <SearchResult
+              <NotFoundSection
                 results={movieResults}
                 title="🍿Movie Results"
                 renderResults={results => (
@@ -125,7 +93,7 @@ const SearchPresenter = ({
                     ))
                 )}
               />
-              <SearchResult
+              <NotFoundSection
                 results={tvResults}
                 title="📺TV Results"
                 renderResults={results => (
