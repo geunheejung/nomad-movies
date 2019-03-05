@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
+import { withNavigation } from 'react-navigation';
 import MoviePoster from './MoviePoster';
 import MovieRating from './MovieRating';
 import Overview from './Overview';
@@ -30,30 +32,52 @@ const OverviewContainer = styled.View`
 	margin-vertical: 10px;
 `;
 
-const MovieItem = ({ id, posterPhoto, title, voteAvg, horizontal, overview }) => (
-	horizontal ? (
-		<HContainer>
-			<MoviePoster path={posterPhoto} />
-			<Column>
-				<Title big>
-					{title}
-				</Title>
-				<MovieRating votes={voteAvg} />
-				<OverviewContainer>
-					<Overview
-						overview={overview}
-						maxLength={150}
-					/>
-				</OverviewContainer>
-			</Column>
-		</HContainer>
-	) : (
-		<Container>
-			<MoviePoster path={posterPhoto} />
-			<Title>{title.length > 15 ? `${title.substring(0, 12)}...` : title}</Title>
-			<MovieRating votes={voteAvg} />
-		</Container>
-	)
+// navigation props는 navigation screnn만 받을 수 있다.
+const MovieItem = ({ 
+	id, 
+	posterPhoto, 
+	title, 
+	voteAvg, 
+	horizontal, 
+	overview,
+	isMovie, 
+	navigation,
+}) => (
+	<TouchableWithoutFeedback		
+		onPress={() => navigation.navigate({
+			routeName: 'Detail',
+			params: {
+				id,
+				isMovie,
+			}
+		})}
+	>
+		{
+			horizontal ? (
+				<HContainer>
+					<MoviePoster path={posterPhoto} />
+					<Column>
+						<Title big>
+							{title}
+						</Title>
+						<MovieRating votes={voteAvg} />
+						<OverviewContainer>
+							<Overview
+								overview={overview}
+								maxLength={150}
+							/>
+						</OverviewContainer>
+					</Column>
+				</HContainer>
+			) : (
+				<Container>
+					<MoviePoster path={posterPhoto} />
+					<Title>{title.length > 15 ? `${title.substring(0, 12)}...` : title}</Title>
+					<MovieRating votes={voteAvg} />
+				</Container>
+			)
+		}
+	</TouchableWithoutFeedback>
 );
 
 MovieItem.propTypes = {
@@ -63,12 +87,14 @@ MovieItem.propTypes = {
 	voteAvg: PropTypes.number.isRequired,
 	horizontal: PropTypes.bool,
 	overview: PropTypes.string,
+	isMovie: PropTypes.bool,
 }
 
 MovieItem.defaultProps = {
 	posterPhoto: '',
 	horizontal: false,
 	overview: '',
+	isMovie: true,
 }
 
-export default MovieItem;
+export default withNavigation(MovieItem);
