@@ -28,8 +28,7 @@ export default class extends PureComponent {
     this.state = { ...params };
   }
 
-  render() {  
-    console.log('this.state -->', this.state);
+  render() {      
     return (      
       <DetailPresenter 
         {...this.props}
