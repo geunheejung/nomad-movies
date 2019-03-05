@@ -10,6 +10,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import MovieScreen from '../screens/Movies';
 import TVScreen from '../screens/TV';
 import SearchScreen from '../screens/Search';
+import DetailScreen from '../screens/Detail';
 
 const getAssetByOs = (name) => Platform.OS === 'ios' ? `ios-${name}` : `md-${name}`;
  

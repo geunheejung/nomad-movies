@@ -101,9 +101,14 @@ const MovieSlide = ({
           <BtnContainer 
             onPress={() => navigate({ 
               routeName: 'Detail',
-              params: {
-                id,
+              params: {                
                 isMovie: true,
+                id,
+                posterPhoto,
+                backgroundPhoto,
+                title,
+                voteAvg,
+                overview,
               }
             })}
           >
