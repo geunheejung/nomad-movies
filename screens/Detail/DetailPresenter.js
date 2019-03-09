@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { LinearGradient } from 'expo';
 import { BG_COLOR, TINT_COLOR } from '../../constatns/Color';
 import Layout from '../../constatns/Layout';
 import makePhotoUrl from '../../utils/makePhotoUrl';
 import MoviePoster from '../../components/MoviePoster';
 import MovieRating from '../../components/MovieRating';
+import Loader from '../../components/Loader';
+import { Platform } from 'react-native';
 
-const Container = styled.ScrollView`  
-  flex: 1;  
+const Container = styled.ScrollView`      
   background-color: ${BG_COLOR};  
 `;
 
@@ -19,18 +21,17 @@ const Header = styled.View`
 
 const BgImage = styled.Image`
   width:${Layout.width};
-  height:${Layout.height / 3};
-  opacity: 0.3;
+  height:${Layout.height / 3.5};
   position: absolute;
   top: 0;
 `;
 
-const Content = styled.View`
-  flex: 1;
+const Content = styled.View`  
+  width: 80%;
   flex-direction: row;
   align-items: flex-end;  
-  height: ${Layout.height / 3};
-  padding-horizontal: 30px;
+  height: ${Layout.height / 3.5};
+  padding-horizontal: 20px;
 `;
 
 const Column = styled.View`
@@ -44,14 +45,44 @@ const Title = styled.Text`
   margin: 0 0 10px 0;
 `;
 
-const DetailPresenter = (props) => {  
+const MainContent = styled.View`
+  width: 80%;
+  padding-horizontal: 20px;
+  margin: 25px 0 0 0;
+`;
+
+const ContentTitle = styled.Text`
+  margin: 0 0 10px 0;
+  color: ${TINT_COLOR};
+  font-weight: 600;
+`;
+
+const ContentValue = styled.Text`
+  margin: 0 0 10px 0;
+  color: ${TINT_COLOR};
+  font-size: 12px;
+`;
+
+const DataContainer = styled.View`
+  font-size: 12px;
+  margin-bottom: 10px;
+`;
+
+const Genres = styled.Text`
+  color: ${TINT_COLOR};
+`;
+
+const DetailPresenter =  (props) => {  
   const {
-    id,
-    posterPhoto,
+    isMovie,    
     title,
     voteAvg,    
     overview,
-    backgroundPhoto,    
+    backgroundPhoto, 
+    genres,
+    loading,   
+    date,
+    status
   } = props;
 
   return (
@@ -62,20 +93,62 @@ const DetailPresenter = (props) => {
           height={Layout.height / 3} 
           source={{ uri: makePhotoUrl(backgroundPhoto) }}
         />
-        
-        <Content>
-          <MoviePoster 
-            path={backgroundPhoto}
-          />
-          <Column>
-            <Title>{title.length > 15 ? `${title.substring(0, 12)}...` : title}</Title>
-            <MovieRating 
-              inSlide
-              votes={voteAvg} 
+        <LinearGradient
+          colors={[ 'transparent', 'black' ]}
+          start={Platform.select({
+            ios: [0, 0]
+          })}
+          end={Platform.select({
+            ios: [0, 0.5],
+            android: [0, 0.9]
+          })}
+        >            
+          <Content>
+            <MoviePoster 
+              path={backgroundPhoto}
             />
-          </Column>
-        </Content>
+            <Column>
+              <Title>{title.length > 15 ? `${title.substring(0, 12)}...` : title}</Title>
+              <MovieRating 
+                inSlide
+                votes={voteAvg} 
+              />
+              {
+                genres ? (
+                  <Genres>
+                    {
+                      genres.map((row, index) => 
+                        genres.length - 1 === index ? row.name : `${row.name} / `)  
+                    }
+                  </Genres>                  
+                ) : null
+              }
+            </Column>
+          </Content>
+        </LinearGradient>
       </Header>
+      <MainContent>  
+        {loading ? <Loader /> : null}                          
+        {overview ? (
+          <DataContainer>
+            <ContentTitle>Overview</ContentTitle>
+            <ContentValue>{overview}</ContentValue>
+          </DataContainer>
+        ) : null}
+        {status ? (
+          <DataContainer>          
+            <ContentTitle>Status</ContentTitle>
+            <ContentValue>{status}</ContentValue>
+          </DataContainer>
+        ) : null}
+        {date ? (
+          <DataContainer>          
+            <ContentTitle>{isMovie ? 'Realease Data' : 'First Episode'}</ContentTitle>
+            <ContentValue>{date}</ContentValue>
+          </DataContainer>
+        ) : null}
+        
+      </MainContent>       
     </Container>
   );
 }
